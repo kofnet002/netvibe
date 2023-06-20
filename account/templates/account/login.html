@@ -12,8 +12,7 @@ Login Page | NetVibe
     <div class="w-[100%] max-w-[400px] p-15 m-auto">
         <form method="POST">{% csrf_token %}
             <div class="mt-36">
-                <img class="img-fluid mx-auto d-block" src=""
-                    alt="logo" width="72" height="72">
+                <img class="img-fluid mx-auto d-block" src="" alt="logo" width="72" height="72">
             </div>
             <input class="mb-10" type="email" name="email" id="inputEmail" class="" placeholder="Email address" required
                 autofocus>
@@ -39,7 +38,7 @@ Login Page | NetVibe
         </form>
 
         <div>
-            <a href="">Reset password</a>
+            <a href="{% url 'password_reset' %}">Reset password</a>
         </div>
     </div>
 

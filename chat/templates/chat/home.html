@@ -4,7 +4,7 @@
 
 {% block content %}
 <h1 class="text-center text-green-700">Home page</h1>
-<h3 class="text-center text-green-700">Home page</h3>
+<h3 class="text-center text-green-700">You're welcome {{ request.user.username }}</h3>
 
 <div class="text-center">
     {% if request.user.is_authenticated %}
