@@ -1,9 +1,13 @@
-{% include 'main.html' %}
+{% extends 'main.html' %}
 
 {% load static %}
 
 {% block content %}
 <h1 class="text-center text-green-700">Home page</h1>
 <h3 class="text-center text-green-700">Home page</h3>
-<p>Hoowowld</p>
+
+<div class="text-center">
+    <a href="#">Login</a>
+    <a href="{% url 'register' %}">Register</a>
+</div>
 {% endblock content %}

@@ -1,43 +1,43 @@
 {% extends 'main.html' %}
 
+{% load static %}
+
 {% block title %}
-Registration Page
+Registration Page | NetVibe
 {% endblock title %}
 
 
 {% block content %}
 <div>
-    <form class="form-signin" method="post">{% csrf_token %}
-        <div class="d-flex flex-column pb-3">
+    <form method="POST">{% csrf_token %}
+        <div class="mt-36">
             <img class="img-fluid mx-auto d-block" src="{% static 'codingwithmitch/logo_250_250_transparent.png' %}"
-                alt="codingwithmitch logo" width="72" height="72">
+                alt="logo" width="72" height="72">
         </div>
-        <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required
-            autofocus>
-    
-        <input type="text" name="username" id="inputUsername" class="form-control" placeholder="Username" required>
-    
-        <input type="password" name="password1" id="inputPassword1" class="form-control" placeholder="Password" required>
-    
-        <input type="password" name="password2" id="inputPassword2" class="form-control" placeholder="Confirm password"
-            required>
-    
+        <input type="email" name="email" id="inputEmail" class="" placeholder="Email address" required autofocus>
+
+        <input type="text" name="username" id="inputUsername" class="" placeholder="Username" required>
+
+        <input type="password" name="password1" id="inputPassword1" class="" placeholder="Password" required>
+
+        <input type="password" name="password2" id="inputPassword2" class="" placeholder="Confirm password" required>
+
         {% for field in registration_form %}
         <p>
             {% for error in field.errors %}
-        <p style="color: red">{{ error }}</p>
+        <p class="text-red-700">{{ error }}</p>
         {% endfor %}
         </p>
         {% endfor %}
         {% if registration_form.non_field_errors %}
-        <div style="color: red">
-            <p>{{registration_form.non_field_errors}}</p>
+        <div>
+            <p class="text-red-700">{{registration_form.non_field_errors}}</p>
         </div>
-    
+
         {% endif %}
-    
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
-    
+
+        <button class="text-green-700" type="submit">Register</button>
+
     </form>
 </div>
 {% endblock content %}
