@@ -1,0 +1,47 @@
+{% extends 'main.html' %}
+
+{% load static %}
+
+{% block title %}
+Login Page | NetVibe
+{% endblock title %}
+
+
+{% block content %}
+<div class="max-w-7xl">
+    <div class="w-[100%] max-w-[400px] p-15 m-auto">
+        <form method="POST">{% csrf_token %}
+            <div class="mt-36">
+                <img class="img-fluid mx-auto d-block" src=""
+                    alt="logo" width="72" height="72">
+            </div>
+            <input class="mb-10" type="email" name="email" id="inputEmail" class="" placeholder="Email address" required
+                autofocus>
+
+            <input class="-mb-1" type="password" name="password" id="inputPassword2" class=""
+                placeholder="Enter password" required>
+
+            {% for field in login_form %}
+            <p>
+                {% for error in field.errors %}
+            <p class="text-red-600">{{ error }}</p>
+            {% endfor %}
+            </p>
+            {% endfor %}
+            {% if login_form.non_field_errors %}
+            <div>
+                <p class="text-red-600">{{ login_form.non_field_errors}}</p>
+            </div>
+
+            {% endif %}
+
+            <button class="text-green-600" type="submit">Login</button>
+        </form>
+
+        <div>
+            <a href="">Reset password</a>
+        </div>
+    </div>
+
+</div>
+{% endblock content %}
