@@ -2,6 +2,10 @@
 
 {% load static %}
 
+{% block title %}
+    Home page | Netvibe
+{% endblock title %}
+
 {% block content %}
 <h1 class="text-center text-green-700">Home page</h1>
 <h3 class="text-center text-green-700">You're welcome {{ request.user.username }}</h3>

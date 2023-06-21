@@ -41,10 +41,11 @@ INSTALLED_APPS = [
 
     'chat.apps.ChatConfig',
     'account.apps.AccountConfig',
+    'friend.apps.FriendConfig',
+
     'tailwind',
     'theme',
     'django_browser_reload',
-
 ]
 
 TAILWIND_APP_NAME = 'theme'
