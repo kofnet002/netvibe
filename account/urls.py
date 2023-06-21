@@ -7,5 +7,4 @@ urlpatterns = [
     path('logout/', logout_view, name='logout'),
     path('search/', search_friend, name='search'),
     path('account/<user_id>/', account_view, name="view-profile"),
-
 ]

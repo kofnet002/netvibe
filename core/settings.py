@@ -151,7 +151,7 @@ COMPRESS_ENABLED = True
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'account.Account'
-
+BASE_URL = 'http://localhost:8000'
 # development only
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
