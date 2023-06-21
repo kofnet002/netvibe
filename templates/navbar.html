@@ -2,11 +2,11 @@
 
 <div class="navbar bg-base-100">
     <div class="flex-1">
-        <a class="btn btn-ghost normal-case text-xl">Netvibe</a>
+        <a href="{% url 'home' %}" class="btn btn-ghost normal-case text-xl">Netvibe</a>
     </div>
     <div class="flex-none gap-2">
         <div class="form-control">
-            <form action="{% url 'query' %}">
+            <form action="{% url 'search' %}">
                 <input name="q" type="text" placeholder="Search..." class="input input-bordered w-24 md:w-auto" />
             </form>
         </div>
@@ -16,16 +16,24 @@
                     <img src="{{ request.user.profile_image.url }}" />
                 </div>
             </label>
+            {% if request.user.is_authenticated %}
             <ul tabindex="0" class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
                 <li>
-                    <a class="justify-between">
+                    <a href="" class="justify-between">
                         Profile
                         <span class="badge">New</span>
                     </a>
                 </li>
                 <li><a>Settings</a></li>
-                <li><a>Logout</a></li>
+                <li><a href="{% url 'logout' %}">Logout</a></li>
             </ul>
+
+            {% else %}
+            <ul tabindex="0" class="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
+                <li><a href="{% url 'login' %}">Login</a></li>
+            </ul>
+            {% endif %}
+
         </div>
     </div>
 </div>

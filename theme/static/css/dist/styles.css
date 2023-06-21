@@ -426,7 +426,7 @@ video {
   -webkit-appearance: none;
      -moz-appearance: none;
           appearance: none;
-  background-color: #fff;
+  background-color: transparent;
   border-color: #6b7280;
   border-width: 1px;
   border-radius: 0px;
@@ -435,7 +435,7 @@ video {
   padding-bottom: 0.5rem;
   padding-left: 0.75rem;
   font-size: 1rem;
-  line-height: 1.5rem;
+  line-height: 1rem;
   --tw-shadow: 0 0 #0000;
 }
 
