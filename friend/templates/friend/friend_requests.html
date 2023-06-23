@@ -1,0 +1,85 @@
+{% extends 'main.html' %}
+
+{% block title %}
+Friend Requests | NetVibe
+{% endblock title %}
+
+{% block content %}
+
+<div class="container">
+    <div class="card p-2">
+
+        {% if friend_requests %}
+        <div class="flex flex-row flex-wrap">
+            {% for request in friend_requests %}
+            <div class="card flex-row flex-grow-1 p-2 mx-2 my-2 items-center">
+                <a class="profile-link" href="{% url 'view-profile' request.sender.id %}">
+                    <div class="card-image m-2">
+                        <img class="img-fluid profile-image" src="{{request.sender.profile_image.url}}" alt="">
+                    </div>
+                </a>
+                <a class="profile-link" href="{% url 'view-profile' request.sender.id %}">
+                    <div class="card-center px-2">
+                        <h4 class="card-title">{{request.sender.username}}</h4>
+                    </div>
+                </a>
+                <div class="flex flex-row card-right flex-grow-1 items-center justify-content-end mx-2 gap-3">
+                    <span id="id_cancel_{{request.sender.id}}" class="btn hover:btn-error flex decline-friend-request material-icons"
+                        onclick='triggerDeclineFriendRequest("{{request.id}}")'>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        cancel</span>
+                    <span id="id_confirm_{{request.sender.id}}" class="btn hover:btn-success flex confirm-friend-request material-icons"
+                        onclick='triggerAcceptFriendRequest("{{request.id}}")'>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        check</span>
+                </div>
+            </div>
+            {% if forloop.counter|divisibleby:2 %}
+        </div>
+        <div class="d-flex flex-row flex-wrap">
+            {% endif %}
+
+            {% endfor %}
+
+            {% else %} <!-- If no friends -->
+            <div class="d-flex flex-row flex-grow-1 justify-content-center align-items-center p-4">
+                <p>No results</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+</div>
+
+<script type="text/javascript">
+
+    function onFriendRequestAccepted() {
+        location.reload();
+    }
+
+    function onFriendRequestDeclined() {
+        location.reload();
+    }
+
+    function triggerAcceptFriendRequest(friend_request_id) {
+        acceptFriendRequest(friend_request_id, onFriendRequestAccepted)
+    }
+
+    function triggerDeclineFriendRequest(friend_request_id) {
+        declineFriendRequest(friend_request_id, onFriendRequestDeclined)
+    }
+</script>
+
+{% include 'friend/snippets/accept_friend_request.html' %}
+{#% include 'friend/snippets/decline_friend_request.html' %#}
+
+
+{% endblock content %}

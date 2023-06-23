@@ -102,40 +102,6 @@ def search_friend(request):
     return render(request, "account/search.html", context)
 
 
-
-    """
-        is_self (boolean)
-            is_friend (boolean)
-                -1: NO_REQUEST_SENT
-                0: THEM_SENT_TO_YOU
-                1: YOU_SENT_TO_THEM
-    """
-
-    context = {}
-
-    user_id = kwargs.get('user_id')
-    try:
-        account = Account.objects.get(pk=user_id)
-    except Account.DoesNotExist:
-        return HttpResponse("Something went wrong.")
-    
-    if account:
-        context['id'] = account.id
-        context['username'] = account.username
-        context['email'] = account.email
-        context['profile_image'] = account.profile_image.url
-
-        # get friend list for the profile in view
-        try:
-            friend_list = FriendList.objects.get(user=account)
-        except FriendList.DoesNotExist:
-            friend_list = FriendList(user=account)
-            friend_list.save()
-        friends = friend_list.friends.all()
-        context['friends'] = friends
-
-        # Define state templates variables
-
 def account_view(request, *args, **kwargs):
 	"""
 	- Logic here is kind of tricky

@@ -1,0 +1,23 @@
+<script type="text/javascript">
+    const acceptFriendRequest = (friend_request_id, uiUpdateFunction) => {
+        const url = "{% url 'accept-friend-request' friend_request_id=8732184781275836521748 %}".replace("8732184781275836521748", friend_request_id)
+
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            url: url,
+            timeout: 5000,
+            success: (data) => {
+                if (data.response == "Friend request accepted.") {
+
+                } else if (data.response != null) {
+                    alert(data.response);
+                }
+            }, error: (data) => {
+                alert("Something went wrong " + data);
+            }, complete: (data) => {
+                uiUpdateFunction()
+            }
+        })
+    }
+</script>

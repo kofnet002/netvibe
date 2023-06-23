@@ -2,6 +2,24 @@ from django.http import HttpResponse
 import json
 from account.models import Account
 from friend.models import FriendRequest
+from django.shortcuts import redirect, render
+
+
+# Create your views here.
+def friend_requests(request, *args, **kwargs): # get friend request list
+    context = {}
+    user = request.user
+    if user.is_authenticated:
+        user_id = kwargs.get('user_id')
+        account = Account.objects.get(pk=user_id)
+        if account == user:
+            friend_requests = FriendRequest.objects.filter(receiver=account, is_active=True)
+            context['friend_requests'] = friend_requests
+        else:
+            return HttpResponse("You can't view another users friend request")
+    else:
+        return redirect('login')
+    return render(request, 'friend/friend_requests.html', context)
 
 
 def send_friend_request(request, *args, **kwargs):
@@ -40,3 +58,28 @@ def send_friend_request(request, *args, **kwargs):
     else:
         payload['response'] = "You must be authenticated to send a friend request."
     return HttpResponse(json.dumps(payload), content_type='application/json')
+
+
+def accept_friend_request(request, *args, **kwargs):
+    user = request.user
+    payload = {}
+    if request.method == "GET" and user.is_authenticated:
+        friend_request_id = kwargs.get('friend_request_id')
+        if friend_request_id:
+            friend_request = FriendRequest.objects.get(pk=friend_request_id)
+            # confirm that is the correct request
+            if friend_request.receiver == user:
+                if friend_request:
+                    # found the request, now accept it
+                    friend_request.accept()
+                    payload['response'] = "Friend request accepted."
+                else:
+                    payload['response'] = "Something went wrong."
+            else:
+                payload['response'] = "That is not your friend request to accept."
+        else:
+            payload['response'] = "Unable to accept the friend request."
+    else:
+        payload['response'] = "You must be authenticated to accept a friend request."
+    
+    return HttpResponse(json.dumps(payload), content_type="application/json")
