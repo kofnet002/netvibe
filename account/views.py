@@ -26,10 +26,8 @@ def register_view(request, *args, **kwargs):
             # clean user intput & login user
             email = form.cleaned_data.get('email').lower()
             raw_password = form.cleaned_data.get('password1')
-            account = authenticate(email=email, raw_password=raw_password)
-            if account:
-                login(request, account)
-                return redirect('home')
+            account = authenticate(email=email, password=raw_password)
+            login(request, account)
 
             destination = get_redirect_if_exists(request)
             if destination:
@@ -37,6 +35,9 @@ def register_view(request, *args, **kwargs):
             return redirect('home')
         else:
             context['registration_form'] = form
+    else:
+        form = RegistrationForm()
+        context['registration_form'] = form
 
     return render(request, 'account/register.html', context)            
 

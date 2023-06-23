@@ -41,7 +41,7 @@ class FriendList(models.Model):
     
 
     def __str__(self):
-        return self.username
+        return f'{self.user.username}'
 
 
 class FriendRequest(models.Model):
