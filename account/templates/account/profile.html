@@ -44,21 +44,23 @@
             <div class="card m-2 p-4">
                 <div class="flex flex-row items-center gap-3">
                     <span class="friend-text align-items-center mr-2">Accept Friend Request</span>
-                    <span id="id_cancel_{{id}}" class="flex btn hover:btn-error decline-friend-request material-icons"
+                    <button id="id_cancel_{{id}}" 
+                    class="flex btn hover:btn-error decline-friend-request material-icons"
                         onclick='triggerDeclineFriendRequest("{{pending_friend_request_id}}")'><svg
                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>decline</span>
-                    <span id="id_confirm_{{id}}"
+                        </svg>decline</button>
+
+                    <button id="id_confirm_{{id}}"
                         class="flex btn hover:btn-success confirm-friend-request material-icons"
                         onclick='triggerAcceptFriendRequest("{{pending_friend_request_id}}")'><svg
                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="w-6 h-6">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>accept</span>
+                        </svg>accept</button>
                 </div>
             </div>
             {% endif %}
@@ -90,9 +92,10 @@
                     <span class="mr-5 text-green-500 friends-btn" type="button" id="id_friends_toggle"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Friends
-                </span>
+                    </span>
                     <div>
-                        <button class="btn hover:btn-error dropdown-item" href="{% url 'remove-friend' %}" id="id_unfriend_btn" onclick="removeFriend('{{id}}', onFriendRemoved)">Unfriend</>
+                        <button class="btn hover:btn-error dropdown-item" href="{% url 'remove-friend' %}"
+                            id="id_unfriend_btn" onclick="removeFriend('{{id}}', onFriendRemoved)">Unfriend</>
                     </div>
                 </div>
                 {% endif %}
@@ -142,8 +145,8 @@
                 </svg>
 
                 <span class="message-btn-text pl-2">Message</span>
-            </button>
-            {% endif %}
+                </button>
+                {% endif %}
 
         </div>
         {% endif %}
@@ -208,5 +211,6 @@
 
 {% include 'friend/snippets/send_friend_request.html' %}
 {% include 'friend/snippets/accept_friend_request.html' %}
+{% include 'friend/snippets/decline_friend_request.html' %}
 {% include 'friend/snippets/remove_friend.html' %}
 {% endblock content %}
