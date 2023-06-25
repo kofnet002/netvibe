@@ -83,6 +83,8 @@ def get_redirect_if_exists(request):
 
 @login_required(login_url='login')
 def search_friend(request):
+    context = {}
+    
     if request.GET:
         query = request.GET.get('q')
         if len(query) > 0:
@@ -91,15 +93,20 @@ def search_friend(request):
                 Q(email__icontains=query),
             )
 
-            accounts = []
+            user = request.user
 
-            for account in users:
-                accounts.append((account, False))
-         
-    context = {
-        'users': users,
-        'accounts': accounts
-    }
+            accounts = [] # [(account1, True), (account2, False), ...]
+            if user.is_authenticated:
+                # get the authenticated users friend list
+                auth_user_friend_list = FriendList.objects.get(user=user)
+                for account in users:
+                    accounts.append((account, auth_user_friend_list.is_mutual_friend(account)))
+                context['accounts'] = accounts
+            else:
+                for account in users:
+                    accounts.append((account, False))
+            context['accounts'] = accounts
+
     return render(request, "account/search.html", context)
 
 
