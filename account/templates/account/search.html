@@ -23,7 +23,7 @@ Search Page | NetVibe
                     <div class="card-center px-2">
                         <h4 class="card-title">{{account.0.username}}</h4>
                         {% if account.1 %}
-                        <p class="card-text"><a href="#" class="text-blue-600" onclick="createOrReturnPrivateChat('{{account.0.id}}')">Send a
+                        <p class="card-text"><a href="{% url 'send-msg-view' request.user.id account.0.id %}" class="text-blue-600">Send a
                                 Message</a></p>
                         {% endif %}
 

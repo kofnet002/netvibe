@@ -15,7 +15,7 @@ class Message(models.Model):
         ordering = ('created_at',)
     
     def __str__(self):
-        return f"{self.sent_by} => {self.body}[:20]"
+        return f"{self.sent_by}"
 
 
 class Room(models.Model):
@@ -31,8 +31,8 @@ class Room(models.Model):
     
     uuid = models.CharField(max_length=255)
     client = models.CharField(max_length=255)
-    receiver = models.ForeignKey(Account, on_delete=models.CASCADE)
-    messages = models.ManyToManyField(Message)
+    receiver = models.ForeignKey(Account, on_delete=models.CASCADE, blank=True, null=True)
+    messages = models.ManyToManyField(Message, blank=True)
     status = models.CharField(max_length=20, choices=CHOICES_STATUS, default='WAITING')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

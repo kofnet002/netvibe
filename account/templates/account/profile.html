@@ -1,6 +1,11 @@
 {% extends 'main.html' %}
 {% load static %}
 
+
+{% block title %}
+    Profile | NetVibe
+{% endblock title %}
+
 {% block content %}
 <div class="container-fluid">
     <div class="d-flex flex-row justify-content-center flex-wrap align-items-start">
@@ -44,8 +49,7 @@
             <div class="card m-2 p-4">
                 <div class="flex flex-row items-center gap-3">
                     <span class="friend-text align-items-center mr-2">Accept Friend Request</span>
-                    <button id="id_cancel_{{id}}" 
-                    class="flex btn hover:btn-error decline-friend-request material-icons"
+                    <button id="id_cancel_{{id}}" class="flex btn hover:btn-error decline-friend-request material-icons"
                         onclick='triggerDeclineFriendRequest("{{pending_friend_request_id}}")'><svg
                             xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                             stroke="currentColor" class="w-6 h-6">
@@ -136,8 +140,9 @@
             {% endif %}
 
             {% if is_friend %}
-            <buton class="flex flex-row items-center btn btn-primary m-2 px-4"
-                onclick="createOrReturnPrivateChat('{{id}}')">
+            <!-- <buton class="flex flex-row items-center btn btn-primary m-2 px-4"
+                onclick="createOrReturnPrivateChat('{{id}}')"> -->
+            <a class="flex flex-row items-center btn btn-primary m-2 px-4" href="{% url 'send-msg-view' request.user.id id %}">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -145,8 +150,8 @@
                 </svg>
 
                 <span class="message-btn-text pl-2">Message</span>
-                </button>
-                {% endif %}
+            </a>
+            {% endif %}
 
         </div>
         {% endif %}
@@ -203,9 +208,10 @@
         acceptFriendRequest(friend_request_id, onFriendRequestAccepted)
     }
 
-    function triggerDeclineFriendRequest(friend_request_id) {
-        declineFriendRequest(friend_request_id, onFriendRequestDeclined)
-    }
+
+    // function triggerDeclineFriendRequest(friend_request_id) {
+    //     createOrReturnPrivateChat()
+    // }
 
 </script>
 
@@ -214,4 +220,5 @@
 {% include 'friend/snippets/decline_friend_request.html' %}
 {% include 'friend/snippets/cancel_friend_request.html' %}
 {% include 'friend/snippets/remove_friend.html' %}
+
 {% endblock content %}

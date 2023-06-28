@@ -1,0 +1,80 @@
+<script defer>
+
+    const auth_user_id = "{{ request.user.id }}";
+    const receiver_id = "{{ receiver_id }}";
+    const submitBtn = document.getElementById('send-message-btn')
+    const message = document.getElementById('message')
+    const chatMessagesContainer = document.getElementById('chat-messages-container');
+
+    const socket = new WebSocket(`ws://${window.location.host}/ws/chat/${auth_user_id}__${receiver_id}/`)
+
+    socket.onmessage = function (e) {
+        const data = JSON.parse(e.data);
+        console.log("Data: ", data);
+
+        // Create a new chat message element
+        // const messageElement = document.createElement('div');
+        // messageElement.classList.add('chat-message');
+
+        if (data.sender_id === auth_user_id) {
+            chatMessagesContainer.innerHTML += `
+            <div class="bg-green-600 rounded-md">
+                <span class="message-body">${data.message}</span>
+            </div>
+        `} else {
+            chatMessagesContainer.innerHTML += `
+            <div class="bg-blue-600 rounded-md">
+                <span class="message-body">${data.message}</span>
+            </div>
+        `}
+
+
+        
+
+        // Create and append the message sender element
+        // const senderElement = document.createElement('span');
+        // messageElement.appendChild(senderElement);
+
+
+        // Create and append the message body element
+        // const bodyElement = document.createElement('span');
+        // bodyElement.classList.add('message-body');
+        // bodyElement.textContent = data.message;
+        // messageElement.appendChild(bodyElement);
+
+
+        // Append the new message element to the chat messages container
+        // chatMessagesContainer.appendChild(messageElement);
+    };
+
+    // Send a request to the server to join the chat room
+    socket.onopen = function (e) {
+        console.log("Connection is open!");
+        // socket.send(JSON.stringify({
+        //     'command': 'join',
+        //     'room_name': "{{ room_name }}",
+        // }));
+    };
+
+    socket.close = function (e) {
+        console.log("Connection closed!");
+    }
+
+    socket.onerror = function (e) {
+        console.log("Error: " + e);
+    }
+
+    submitBtn.addEventListener('click', () => {
+        const messageToSend = message.value
+        if (messageToSend != '') {
+            socket.send(JSON.stringify({
+                'message': messageToSend,
+                'sender_id': auth_user_id,
+                'receiver_id': receiver_id,
+            }))
+        }
+
+        // Clear the input field
+        message.value = '';
+    });
+</script>
