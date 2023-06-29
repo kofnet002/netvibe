@@ -20,16 +20,13 @@
             chatMessagesContainer.innerHTML += `
             <div class="bg-green-600 rounded-md">
                 <span class="message-body">${data.message}</span>
-            </div>
-        `} else {
+            </div>`
+        } else {
             chatMessagesContainer.innerHTML += `
             <div class="bg-blue-600 rounded-md">
                 <span class="message-body">${data.message}</span>
-            </div>
-        `}
-
-
-        
+            </div>`
+        }
 
         // Create and append the message sender element
         // const senderElement = document.createElement('span');
@@ -50,10 +47,6 @@
     // Send a request to the server to join the chat room
     socket.onopen = function (e) {
         console.log("Connection is open!");
-        // socket.send(JSON.stringify({
-        //     'command': 'join',
-        //     'room_name': "{{ room_name }}",
-        // }));
     };
 
     socket.close = function (e) {
