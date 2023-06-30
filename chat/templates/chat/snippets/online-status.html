@@ -1,0 +1,42 @@
+<script defer>
+    const loggedInUserId = "{{ request.user.id }}";
+
+    const onlineSocket = new WebSocket(`ws://${window.location.host}/ws/online/`)
+
+
+    onlineSocket.onopen = (e) => {
+        console.log("Online status Connection established");
+        onlineSocket.send(JSON.stringify({
+            'userId': loggedInUserId,
+            'type': 'open',
+        }))
+    };
+
+
+    window.addEventListener("beforeunload", (e) => {
+        onlineSocket.send(JSON.stringify({
+            'userId': loggedInUserId,
+            'type': 'offline',
+        }))
+    })
+
+    onlineSocket.onclose = (e) => {
+        console.log("Online status Chat Connection closed");
+    };
+
+
+    onlineSocket.onmessage = (e) => {
+        const data = JSON.parse(e.data);
+        if (data.user_id != loggedInUserId) {
+            let user_to_change = document.getElementById(`${data.user_id}_status`)
+            if (data.online_status == true) {
+                user_to_change.style.color = 'green'
+                user_to_change.innerHTML = 'online'
+
+            } else {
+                user_to_change.style.color = 'red'
+                user_to_change.innerHTML = 'last seen: {{ receiver_obj.last_login }}'
+            }
+        }
+    }
+</script>

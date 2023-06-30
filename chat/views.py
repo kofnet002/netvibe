@@ -22,7 +22,9 @@ def send_message_view(request, *args, **kwargs):
     sender_id = kwargs.get('id1')
     receiver_id = kwargs.get('id2')
 
-    chatId = kwargs
+    receiver_obj = Account.objects.get(id=receiver_id)
+
+    # chatId = kwargs
   
     messages = Message.objects.all()
 
@@ -34,10 +36,11 @@ def send_message_view(request, *args, **kwargs):
     context = {
         'receiver_id': receiver_id,
         'sender_id': sender_id,
-        # 'receiver_obj': receiver_obj,
         'messages_queryset': messages_queryset,
-        'room_name': f'private_chat_{sender_id}_{receiver_id}',
-        'chatId': chatId,
+        'receiver_obj': receiver_obj,
+        
+        # 'room_name': f'private_chat_{sender_id}_{receiver_id}',
+        # 'chatId': chatId,
 
     }
     return render(request, 'chat/inbox.html', context)

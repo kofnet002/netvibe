@@ -5,7 +5,7 @@ Chat | Netvibe
 {% endblock title %}
 
 {% block content %}
-<div class="container" style="position: 10rem;">
+<div class="container mx-auto">
     <h1 class="h3 mb-3">Messages</h1>
     <div class="">
         <div class="row g-0">
@@ -40,25 +40,34 @@ Chat | Netvibe
                     </div>
                 </div>
 
+                <div class="text-center mb-10">
+                    <h1>{{ receiver_obj.username }}</h1>
+                    {% if receiver_obj.is_online %}
+                    <p class="text-green-600" id="{{receiver_obj.id}}_status"><i>online</i></p>
+                    {% else %}
+                    <p class="text-red-600" id="{{receiver_obj.id}}_status"><i>last seen: {{ receiver_obj.last_login }}</i></p>
+                    {% endif %}
+                </div>
 
                 <!-- chat message container element -->
-                <div id="chat-messages-container">
+                <div class="max-h-96 overflow-y-scroll" id="chat-messages-container">
                     {% for message in messages_queryset %}
                     <div
-                        class="chat-message flex {% if message.sent_by_id == request.user.id %} justify-end {% else %} justify-start {% endif %}">
-                        <span class="message-body">{{ message.body|linebreaks }}</span>
+                        class="chat-message flex flex-row {% if message.sent_by_id == request.user.id %} justify-end {% else %} justify-start {% endif %}">
+                        <p class="message-body mr-5">{{ message.body|linebreaks }}</p> <br> <br>
+                        <p class="text-sm">{{ message.created_at }}</p>
                     </div>
                     {% endfor %}
                 </div>
 
 
-                <div class="flex-grow-0 py-3 px-4 border-top">
+                <div class="flex-grow-0 py-3 px-4">
                     <div class="flex flex-col input-group">
-                        <input type="hidden" name="to_user" id="" value="{{active_direct}}">
-                        <!-- <input name="body" type="text" class="form-control" placeholder="Type your message"> -->
-                        <textarea id="message" name="body" class="p-3 form-control text-white"
-                            placeholder="Type your message..." style="width: 90%;" required></textarea>
-                        <button id="send-message-btn" class="btn" type="submit">Send</button>
+                        <!-- <textarea id="message"
+                            placeholder="Send message to {{ receiver_obj.username }}" required>
+                        </textarea> -->
+                        <input class="p-5" placeholder="Send message to {{ receiver_obj.username }}" type="text" id="message">
+                        <button style="border-top-left-radius: 0.5rem; border-bottom-left-radius: 0.5rem;" id="send-message-btn" class="rounded-tl-[0.5rem] mt-3 btn btn-primary" type="submit">Send</button>
                     </div>
                 </div>
 
@@ -69,5 +78,6 @@ Chat | Netvibe
 
 
 {% include 'chat/snippets/chat.html' %}
+{% include 'chat/snippets/online-status.html' %}
 
 {% endblock content %}

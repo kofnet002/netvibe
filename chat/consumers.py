@@ -5,6 +5,7 @@ from .models import Message
 from account.models import Account
 from asgiref.sync import sync_to_async
 
+
 # class ChatConsumer(AsyncJsonWebsocketConsumer):
 
 #     async def connect(self):
@@ -171,3 +172,55 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
     def get_account_instance(self, account_id):
         # Retrieve the Account instance asynchronously
         return Account.objects.get(id=account_id)
+
+
+class OnlineStatusConsumer(AsyncJsonWebsocketConsumer):
+    async def connect(self):
+        # common/static group to allow users connected to it to know the 
+        # online status of other users connected to this group
+        self.room_group_name = 'user'
+
+        await self.channel_layer.group_add(
+            self.room_group_name,
+            self.channel_name    
+        )
+    
+        await self.accept()
+
+
+    async def receive(self, text_data=None, bytes_data=None, **kwargs):
+        data = json.loads(text_data)
+        user_id = data['userId']
+        connection_type = data['type']
+
+        # save the necessary change to the database
+        await self.change_online_status(user_id, connection_type)
+
+
+    async def send_onlineStatus(self, event):
+        data = json.loads(event.get('value'))
+        user_id = str(data['user_id'])  # Convert UUID to string
+        online_status = data['online_status']
+
+        await self.send(text_data=json.dumps({
+            'user_id': user_id,
+            'online_status': online_status
+        }))
+
+
+    async def disconnect(self, message):
+        self.channel_layer.group_discard(
+            self.room_group_name,
+            self.channel_name,
+        )
+    
+
+    @sync_to_async
+    def change_online_status(self, use_id, connection_type):
+        user = Account.objects.get(id=use_id)
+        if connection_type == 'open':
+            user.is_online = True
+            user.save()
+        else:
+            user.is_online = False
+            user.save()

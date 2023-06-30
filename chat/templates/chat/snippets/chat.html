@@ -8,7 +8,7 @@
 
     const socket = new WebSocket(`ws://${window.location.host}/ws/chat/${auth_user_id}__${receiver_id}/`)
 
-    socket.onmessage = function (e) {
+    socket.onmessage = (e) => {
         const data = JSON.parse(e.data);
         console.log("Data: ", data);
 
@@ -45,15 +45,15 @@
     };
 
     // Send a request to the server to join the chat room
-    socket.onopen = function (e) {
-        console.log("Connection is open!");
+    socket.onopen = (e) => {
+        console.log("Chat Connection is open!");
     };
 
-    socket.close = function (e) {
-        console.log("Connection closed!");
+    socket.close = (e) => {
+        console.log("Chat Connection closed!");
     }
 
-    socket.onerror = function (e) {
+    socket.onerror = (e) => {
         console.log("Error: " + e);
     }
 
