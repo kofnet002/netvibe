@@ -11,7 +11,7 @@ Login Page | NetVibe
     <div class="mt-40 flex flex-col items-center justify-center">
         <form method="POST">{% csrf_token %}
             <div class="">
-                <img class="img-fluid mx-auto d-block" src="" alt="logo" width="72" height="72">
+                <img  class="img-fluid mx-auto d-block" src="{% static 'images/logo.png' %}" alt="logo" width="50%">
             </div>
 
                 {% for field in login_form %}

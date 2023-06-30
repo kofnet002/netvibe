@@ -1,5 +1,4 @@
 import json
-import re
 from channels.generic.websocket import AsyncJsonWebsocketConsumer
 from .models import Message
 from account.models import Account
