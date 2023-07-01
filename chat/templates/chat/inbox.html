@@ -53,8 +53,8 @@ Chat | Netvibe
                 <div class="max-h-96 overflow-y-scroll" id="chat-messages-container">
                     {% for message in messages_queryset %}
                     <div
-                        class="chat-message flex flex-row {% if message.sent_by_id == request.user.id %} justify-end {% else %} justify-start {% endif %}">
-                        <p class="message-body mr-5">{{ message.body|linebreaks }}</p> <br> <br>
+                        class="chat-message flex flex-row {% if message.sent_by_id == request.user.id %}bg-green-700 justify-end rounded-lg {% else %}bg-blue-700 justify-start rounded-lg {% endif %}">
+                        <p class="flex p-4 max-w-md message-body">{{ message.body|linebreaks }}</p>
                         <p class="text-sm">{{ message.created_at }}</p>
                     </div>
                     {% endfor %}

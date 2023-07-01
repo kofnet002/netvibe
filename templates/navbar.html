@@ -4,7 +4,7 @@
 <div class="navbar bg-base-100">
     {% if request.user.is_authenticated %}
     <div class="flex-1">
-        <a href="{% url 'home' %}" class="btn btn-ghost normal-case text-xl">
+        <a href="{% url 'home' %}" class="normal-case text-xl">
             <img class="img-fluid mx-auto d-block" src="{% static 'images/logo.png' %}" alt="logo" width="50%">
         </a>
 

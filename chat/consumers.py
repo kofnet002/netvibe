@@ -116,6 +116,7 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
 
     async def receive(self, text_data=None, bytes_data=None):
         data = json.loads(text_data)
+        typing_status = data['type']
         message = data['message']
         sender_id = data['sender_id']
         receiver_id = data['receiver_id']
@@ -128,6 +129,7 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
         # save messages to database
         await self.save_message(sender, message, receiver)
 
+
         await self.channel_layer.group_send(
             self.room_group_name,{
                 'type': 'chat_message',
@@ -136,19 +138,21 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
                 'receiver_id': receiver_id
             }
         )
+        
 
-
+    # send message to friend
     async def chat_message(self, event):
+        typing_status = event['type']
         message = event['message']
         sender_id = event['sender_id']
         receiver_id = event['receiver_id']
 
         await self.send(text_data=json.dumps({
+            'typing_status': typing_status,
             'message': message,
             'sender_id': sender_id,
             'receiver_id': receiver_id
         }))
-
 
     async def disconnect(self, code):
         print(f"Disconnecting with code: {code}")
