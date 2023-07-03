@@ -1,47 +1,53 @@
 <script defer>
-
     const auth_user_id = "{{ request.user.id }}";
     const receiver_id = "{{ receiver_id }}";
-    const submitBtn = document.getElementById('send-message-btn')
-    const message = document.getElementById('message')
-    const chatMessagesContainer = document.getElementById('chat-messages-container');
+    const auth_profile_image = "{{ request.user.profile_image.url }}";
+    const receiver_profile_image = "{{ receiver_obj.profile_image.url }}";
+    const message_created_at = "{{ message.created_at }}";
+    const submitBtn = document.getElementById("send-message-btn");
+    const message = document.getElementById("message");
+    const chatMessagesContainer = document.getElementById(
+        "chat-messages-container"
+    );
 
-    const socket = new WebSocket(`ws://${window.location.host}/ws/chat/${auth_user_id}__${receiver_id}/`)
+    const socket = new WebSocket(
+        `ws://${window.location.host}/ws/chat/${auth_user_id}__${receiver_id}/`
+    );
 
     socket.onmessage = (e) => {
         const data = JSON.parse(e.data);
-        console.log("Data: ", data);
-
-        // Create a new chat message element
-        // const messageElement = document.createElement('div');
-        // messageElement.classList.add('chat-message');
 
         if (data.sender_id === auth_user_id) {
             chatMessagesContainer.innerHTML += `
-            <div class="bg-green-700 rounded-md">
-                <span class="message-body">${data.message}</span>
-            </div>`
+           <div class="chat-message flex justify-end items-end mb-3">
+                <div class="flex items-end">
+                    <span class="bubble right">${data.message}
+                    <span class="flex text-sm justify-end">${message_created_at}</span>
+                    </span>
+                </div>
+                <label tabindex="0" class="btn btn-ghost btn-circle avatar">
+                    <div class="w-8 rounded-full">
+                        <img src="${receiver_profile_image}" />
+                    </div>
+                </label>
+            </div>
+            `;
         } else {
             chatMessagesContainer.innerHTML += `
-            <div class="flex justify-end bg-blue-700 rounded-md">
-                <span class="message-body">${data.message}</span>
-            </div>`
+             <div class="chat-message flex justify-start items-end mb-3">
+                    <label tabindex="0" class="btn btn-ghost btn-circle avatar">
+                        <div class="w-8 rounded-full">
+                            <img src="${auth_profile_image}" />
+                        </div>
+                    </label>
+                    <div class="flex items-end">
+                        <span class="bubble left">${data.message}
+                        <span class="flex text-sm justify-start">${message_created_at}</span>
+                        </span>
+                    </div>
+            </div>
+            `;
         }
-
-        // Create and append the message sender element
-        // const senderElement = document.createElement('span');
-        // messageElement.appendChild(senderElement);
-
-
-        // Create and append the message body element
-        // const bodyElement = document.createElement('span');
-        // bodyElement.classList.add('message-body');
-        // bodyElement.textContent = data.message;
-        // messageElement.appendChild(bodyElement);
-
-
-        // Append the new message element to the chat messages container
-        // chatMessagesContainer.appendChild(messageElement);
     };
 
     // Send a request to the server to join the chat room
@@ -51,24 +57,26 @@
 
     socket.close = (e) => {
         console.log("Chat Connection closed!");
-    }
+    };
 
     socket.onerror = (e) => {
         console.log("Error: " + e);
-    }
+    };
 
-    submitBtn.addEventListener('click', () => {
-        const messageToSend = message.value
-        if (messageToSend != '') {
-            socket.send(JSON.stringify({
-                'type': 'sendMessage',
-                'message': messageToSend,
-                'sender_id': auth_user_id,
-                'receiver_id': receiver_id,
-            }))
+    submitBtn.addEventListener("click", () => {
+        const messageToSend = message.value;
+        if (messageToSend != "") {
+            socket.send(
+                JSON.stringify({
+                    type: "sendMessage",
+                    message: messageToSend,
+                    sender_id: auth_user_id,
+                    receiver_id: receiver_id,
+                })
+            );
         }
 
         // Clear the input field
-        message.value = '';
+        message.value = "";
     });
 </script>

@@ -6,10 +6,6 @@
 
     typingSocket.onopen = (e) => {
         console.log("Typing status Connection established");
-        typingSocket.send(JSON.stringify({
-            'userId': auth_user_id_,
-            'type': 'not_typing',
-        }))
     };
 
 

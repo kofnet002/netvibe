@@ -16,8 +16,6 @@ def send_message_view(request, *args, **kwargs):
 
     receiver_obj = Account.objects.get(id=receiver_id)
 
-    # chatId = kwargs
-  
     messages = Message.objects.all()
 
     # Filter the messages queryset to include only the relevant messages
@@ -30,9 +28,5 @@ def send_message_view(request, *args, **kwargs):
         'sender_id': sender_id,
         'messages_queryset': messages_queryset,
         'receiver_obj': receiver_obj,
-        
-        # 'room_name': f'private_chat_{sender_id}_{receiver_id}',
-        # 'chatId': chatId,
-
     }
     return render(request, 'chat/inbox.html', context)

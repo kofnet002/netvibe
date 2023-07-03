@@ -5,6 +5,37 @@ Chat | Netvibe
 {% endblock title %}
 
 {% block content %}
+<style>
+    .bubble {
+        --r: 25px;
+        /* the radius */
+        --t: 30px;
+        /* the size of the tail */
+
+        max-width: 100%;
+        padding: calc(2*var(--r)/3);
+        -webkit-mask:
+            radial-gradient(var(--t) at var(--_d) 0, #0000 98%, #000 102%) var(--_d) 100%/calc(100% - var(--r)) var(--t) no-repeat,
+            conic-gradient(at var(--r) var(--r), #000 75%, #0000 0) calc(var(--r)/-2) calc(var(--r)/-2) padding-box,
+            radial-gradient(50% 50%, #000 98%, #0000 101%) 0 0/var(--r) var(--r) space padding-box;
+        background: linear-gradient(135deg, #FE6D00, #1384C5) border-box;
+        color: #fff;
+    }
+
+    .left {
+        --_d: 0%;
+        border-left: var(--t) solid #0000;
+        margin-right: var(--t);
+        place-self: start;
+    }
+
+    .right {
+        --_d: 100%;
+        border-right: var(--t) solid #0000;
+        margin-left: var(--t);
+        place-self: end;
+    }
+</style>
 <div class="container mx-auto">
     <h1 class="h3 mb-3">Messages</h1>
     <div class="">
@@ -41,22 +72,45 @@ Chat | Netvibe
                 </div>
 
                 <div class="text-center mb-10">
-                    <h1>{{ receiver_obj.username }}</h1>
+                    <h1>@{{ receiver_obj.username }}</h1>
                     {% if receiver_obj.is_online %}
                     <p class="text-green-600" id="{{receiver_obj.id}}_status"><i>online</i></p>
                     {% else %}
-                    <p class="text-red-600" id="{{receiver_obj.id}}_status"><i>last seen: {{ receiver_obj.last_login }}</i></p>
+                    <p class="text-red-600" id="{{receiver_obj.id}}_status"><i>last seen: {{ receiver_obj.last_login
+                            }}</i></p>
                     {% endif %}
                 </div>
 
                 <!-- chat message container element -->
                 <div class="max-h-96 overflow-y-scroll" id="chat-messages-container">
                     {% for message in messages_queryset %}
-                    <div
-                        class="chat-message flex flex-row {% if message.sent_by_id == request.user.id %}bg-green-700 justify-end rounded-lg {% else %}bg-blue-700 justify-start rounded-lg {% endif %}">
-                        <p class="flex p-4 max-w-md message-body">{{ message.body|linebreaks }}</p>
-                        <p class="text-sm">{{ message.created_at }}</p>
+                    {% if message.sent_by_id == request.user.id %}
+                    <div class="chat-message flex justify-end items-end mb-3">
+                        <div class="flex items-end">
+                            <span class="bubble right">{{ message.body|linebreaks }}
+                                <span class="flex text-sm justify-end">{{ message.created_at }}</span>
+                            </span>
+                        </div>
+                        <label tabindex="0" class="btn btn-ghost btn-circle avatar">
+                            <div class="w-8 rounded-full">
+                                <img src="{{ message.sent_by.profile_image.url }}" />
+                            </div>
+                        </label>
                     </div>
+                    {% else %}
+                    <div class="chat-message flex justify-start items-end mb-3">
+                        <label tabindex="0" class="btn btn-ghost btn-circle avatar">
+                            <div class="w-8 rounded-full">
+                                <img src="{{ message.sent_by.profile_image.url }}" />
+                            </div>
+                        </label>
+                        <div class="flex items-end">
+                            <span class="bubble left">{{ message.body|linebreaks }}
+                                <span class="flex text-sm justify-start">{{ message.created_at }}</span>
+                            </span>
+                        </div>
+                    </div>
+                    {% endif %}
                     {% endfor %}
                 </div>
 
@@ -66,8 +120,11 @@ Chat | Netvibe
                         <!-- <textarea id="message"
                             placeholder="Send message to {{ receiver_obj.username }}" required>
                         </textarea> -->
-                        <input class="p-5" placeholder="Send message to {{ receiver_obj.username }}" type="text" id="message">
-                        <button style="border-top-left-radius: 0.5rem; border-bottom-left-radius: 0.5rem;" id="send-message-btn" class="rounded-tl-[0.5rem] mt-3 btn btn-primary" type="submit">Send</button>
+                        <input class="p-5" placeholder="Send message to {{ receiver_obj.username }}" type="text"
+                            id="message">
+                        <button style="border-top-left-radius: 0.5rem; border-bottom-left-radius: 0.5rem;"
+                            id="send-message-btn" class="rounded-tl-[0.5rem] mt-3 btn btn-primary"
+                            type="submit">Send</button>
                     </div>
                 </div>
 

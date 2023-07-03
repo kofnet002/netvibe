@@ -116,7 +116,6 @@ class ChatConsumer(AsyncJsonWebsocketConsumer):
 
     async def receive(self, text_data=None, bytes_data=None):
         data = json.loads(text_data)
-        typing_status = data['type']
         message = data['message']
         sender_id = data['sender_id']
         receiver_id = data['receiver_id']
