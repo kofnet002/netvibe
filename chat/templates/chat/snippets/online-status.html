@@ -1,5 +1,6 @@
 <script defer>
     const loggedInUserId = "{{ request.user.id }}";
+    const lastSeenOnline = "{{ receiver_obj.last_login }}"
 
     const onlineSocket = new WebSocket(`ws://${window.location.host}/ws/online/`)
 
@@ -35,7 +36,7 @@
 
             } else {
                 user_to_change.style.color = 'red'
-                user_to_change.innerHTML = 'last seen: {{ receiver_obj.last_login }}'
+                user_to_change.innerHTML = `last seen: ${lastSeenOnline}`
             }
         }
     }

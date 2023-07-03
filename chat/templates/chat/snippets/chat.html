@@ -53,6 +53,12 @@
     // Send a request to the server to join the chat room
     socket.onopen = (e) => {
         console.log("Chat Connection is open!");
+
+        // Geting the chat messags to automatically scroll down when a user opens a
+        // chat in jQuery
+        $(document).ready(function () {
+            $("#chat-messages-container").scrollTop($("#chat-messages-container")[0].scrollHeight);
+        });
     };
 
     socket.close = (e) => {
