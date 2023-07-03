@@ -18,9 +18,29 @@ def send_onlineStatus(sender, instance, created, **kwargs):
         }
 
         async_to_sync(channel_layer.group_send)(
-            # group room name from consumer
+            # group room name for consumer
             'user',{
                 'type': 'send_onlineStatus',
+                'value': json.dumps(data)
+            }
+        )
+
+
+@receiver(post_save, sender=Account)
+def send_is_typing_status(sender, instance, created, **kwargs):
+    if not created:
+        channel_layer = get_channel_layer()
+        user_id = str(instance.id)
+        typing_status = instance.is_typing
+
+        data = {
+            'user_id': user_id,
+            'typing_status': typing_status
+        }
+
+        async_to_sync(channel_layer.group_send)(
+            'typing_status', {
+                'type': 'send_is_typing_status',
                 'value': json.dumps(data)
             }
         )

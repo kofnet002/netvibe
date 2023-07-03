@@ -16,29 +16,3 @@ class Message(models.Model):
     
     def __str__(self):
         return f"{self.sent_by}"
-
-
-class Room(models.Model):
-    WAITING = 'waiting'
-    ACTIVE = 'active'
-    CLOSED = 'closed'
-
-    CHOICES_STATUS = (
-        (WAITING, 'waiting'),
-        (ACTIVE, 'active'),
-        (CLOSED, 'closed'),
-    )
-    
-    uuid = models.CharField(max_length=255)
-    client = models.CharField(max_length=255)
-    receiver = models.ForeignKey(Account, on_delete=models.CASCADE, blank=True, null=True)
-    messages = models.ManyToManyField(Message, blank=True)
-    status = models.CharField(max_length=20, choices=CHOICES_STATUS, default='WAITING')
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        ordering = ('-created_at',)
-    
-    def __str__(self):
-        return f"{self.client} => {self.uuid}"

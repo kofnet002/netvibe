@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from .models import Room, Message
-from django.http import JsonResponse
+from .models import  Message
 from account.models import Account
 
 # Create your views here.
@@ -9,13 +8,6 @@ from account.models import Account
 def index(request):
     return render(request, 'chat/home.html')
 
-
-def create_room(request, uuid):
-    client = request.POST.get('name', '')
-
-    Room.objects.create(uuid=uuid, client=client)
-
-    return JsonResponse({'message': 'Room created successfully'})
 
 
 def send_message_view(request, *args, **kwargs):

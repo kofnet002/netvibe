@@ -227,3 +227,55 @@ class OnlineStatusConsumer(AsyncJsonWebsocketConsumer):
         else:
             user.is_online = False
             user.save()
+
+
+class TypingStatusConsumer(AsyncJsonWebsocketConsumer):
+    async def connect(self):
+        # common/static group to allow users connected to it to know the 
+        # typing status of other users connected to this group
+        self.room_group_name = 'typing_status'
+
+        await self.channel_layer.group_add(
+            self.room_group_name,
+            self.channel_name    
+        )
+    
+        await self.accept()
+
+
+    async def receive(self, text_data=None, bytes_data=None, **kwargs):
+        data = json.loads(text_data)
+        user_id = data['userId']
+        connection_type = data['type']
+
+        # save the necessary change to the database
+        await self.change_typing_status(user_id, connection_type)
+
+
+    async def send_is_typing_status(self, event):
+        data = json.loads(event.get('value'))
+        user_id = str(data['user_id'])  # Convert UUID to string
+        typing_status = data['typing_status']
+
+        await self.send(text_data=json.dumps({
+            'user_id': user_id,
+            'typing_status': typing_status
+        }))
+
+
+    async def disconnect(self, message):
+        self.channel_layer.group_discard(
+            self.room_group_name,
+            self.channel_name,
+        )
+    
+
+    @sync_to_async
+    def change_typing_status(self, use_id, connection_type):
+        user = Account.objects.get(id=use_id)
+        if connection_type == 'typing':
+            user.is_typing = True
+            user.save()
+        else:
+            user.is_typing = False
+            user.save()

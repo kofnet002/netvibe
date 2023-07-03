@@ -1,0 +1,50 @@
+<script defer>
+    const auth_user_id_ = "{{ request.user.id }}";
+    const input_ = document.getElementById('message')
+
+    const typingSocket = new WebSocket(`ws://${window.location.host}/ws/typing/`)
+
+    typingSocket.onopen = (e) => {
+        console.log("Typing status Connection established");
+        typingSocket.send(JSON.stringify({
+            'userId': auth_user_id_,
+            'type': 'not_typing',
+        }))
+    };
+
+
+    input_.onfocus = (e) => {
+        typingSocket.send(JSON.stringify({
+            'userId': auth_user_id_,
+            'type': 'typing',
+        }))
+    }
+
+    input_.onblur = (e) => {
+        typingSocket.send(JSON.stringify({
+            'userId': auth_user_id_,
+            'type': 'not_typing',
+        }))
+    }
+
+
+    typingSocket.onclose = (e) => {
+        console.log("Typing status Chat Connection closed");
+    };
+
+
+    typingSocket.onmessage = (e) => {
+        const data = JSON.parse(e.data);
+        if (data.user_id != auth_user_id_) {
+            let user_to_change = document.getElementById(`${data.user_id}_status`)
+            if (data.typing_status == true) {
+                user_to_change.style.color = 'green'
+                user_to_change.innerHTML = 'typing...'
+
+            } else {
+                user_to_change.style.color = 'green'
+                user_to_change.innerHTML = 'online'
+            }
+        }
+    }
+</script>
