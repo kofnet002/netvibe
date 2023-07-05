@@ -6,7 +6,14 @@ from account.models import Account
 # Create your views here.
 @login_required(login_url='/login')
 def index(request):
-    return render(request, 'chat/home.html')
+    user = request.user.username
+    all_users = Account.objects.exclude(username=user)
+
+    context = {
+        'all_users': all_users,
+    }
+
+    return render(request, 'chat/home.html', context)
 
 
 
