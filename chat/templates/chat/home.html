@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block title %}
-    Home page | Netvibe
+Home page | Netvibe
 {% endblock title %}
 
 {% block content %}
@@ -12,14 +12,6 @@
 <h3 class="text-center text-green-700">You're welcome {{ request.user.username }}</h3>
 
 
-<div class="text-center">
-    {% if request.user.is_authenticated %}
-    <a href="{% url 'logout' %}">Log out</a>
-    {% else %}
-    <a href="{% url 'login' %}">Login</a>
-    <a href="{% url 'register' %}">Register</a>
-    {% endif %}
-</div>
 
 {#% include 'chat/snippets/chat.html' %#}
 {% endblock content %}
