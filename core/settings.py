@@ -45,16 +45,16 @@ INSTALLED_APPS = [
     'friend.apps.FriendConfig',
 
     'tailwind',
-    'theme',
-    'django_browser_reload',
-    'compressor',
+    # 'theme',
+    # 'django_browser_reload',
+    # 'compressor',
 ]
 
-TAILWIND_APP_NAME = 'theme'
+# TAILWIND_APP_NAME = 'theme'
 
-INTERNAL_IPS = [
-    '127.0.0.1',
-]
+# INTERNAL_IPS = [
+#     '127.0.0.1',
+# ]
     
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
