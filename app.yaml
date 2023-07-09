@@ -19,7 +19,7 @@ env: flex
 entrypoint: gunicorn -b :$PORT core.asgi
 
 beta_settings:
-    cloud_sql_instances: evident-ratio-391818:us-central1:netvibe-instance
+    cloud_sql_instances: netvibe:us-central1:netvibe-instance2
 
 runtime_config:
   python_version: 3.7

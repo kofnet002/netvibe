@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 from decouple import config
+import dj_database_url
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,7 +28,8 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['netvibe.azurewebsites.net', 'localhost']
+CSRF_TRUSTED_ORIGINS=['https://netvibe.azurewebsites.net', 'http://localhost']
 
 
 # Application definition
@@ -103,12 +106,34 @@ CHANNEL_LAYERS = {
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': config('DBNAME'),
+#         'HOST': config('DBHOST'),
+#         'USER': config('DBUSER'),
+#         'PORT': config('DBPORT'),
+#         'PASSWORD': config('DBPASS'),
+#         'OPTIONS': {'sslmode': 'require'},
+#     }
+# }
+
+# DATABASES['default'] = dj_database_url.config(
+#     conn_max_age=600,
+#     conn_health_checks=True,
+# )
+
+DATABASE_URL = config('DATABASE_URL')
+DATABASES = {'default': dj_database_url.parse(DATABASE_URL), 'OPTIONS': {'sslmode': 'require'}}
+
 
 
 # Password validation
@@ -154,8 +179,8 @@ STATICFILES_DIRS= [
 MEDIA_ROOT = BASE_DIR / 'static/images/'
 MEDIA_URL = '/images/'
 
-COMPRESS_ROOT = BASE_DIR / 'static'
-COMPRESS_ENABLED = True
+# COMPRESS_ROOT = BASE_DIR / 'static'
+# COMPRESS_ENABLED = True
 # STATICFILES_FINDERS = ('compressor.finders.CompressorFinder',)
 
 # Default primary key field type
