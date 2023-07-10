@@ -114,27 +114,20 @@ CHANNEL_LAYERS = {
 # }
 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': config('DBNAME'),
-#         'HOST': config('DBHOST'),
-#         'USER': config('DBUSER'),
-#         'PORT': config('DBPORT'),
-#         'PASSWORD': config('DBPASS'),
-#         'OPTIONS': {'sslmode': 'require'},
-#     }
-# }
-
-# DATABASES['default'] = dj_database_url.config(
-#     conn_max_age=600,
-#     conn_health_checks=True,
-# )
-
-DATABASE_URL = config('DATABASE_URL')
-DATABASES = {'default': dj_database_url.parse(DATABASE_URL), 'OPTIONS': {'sslmode': 'require'}}
-
-
+DATABASES = {
+     'default': {
+         'ENGINE': 'mssql',
+         'NAME': 'netvibe-database',
+         'USER': 'CloudSA519631a5',
+         'PASSWORD': 'fuckthembitches',
+         'HOST': 'netvibe-server.database.windows.net',
+         'PORT': '1433',
+         'OPTIONS': {
+             'driver': 'ODBC Driver 18 for SQL Server',
+             'MARS_Connection': 'True',
+         }
+     }
+ }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
