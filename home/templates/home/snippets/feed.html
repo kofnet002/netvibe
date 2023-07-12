@@ -1,0 +1,51 @@
+{% load static %}
+
+{#% for user in all_users %#}
+<!-- <div class="flex justify-evenly items-center gap-3 mt-5 avatar">
+    <div class="w-24 rounded-xl">
+        <img class="hover:cursor-pointer avatar w-40" src="{{ user.profile_image.url }}" alt="user profile image" />
+    </div>
+    <a href="{% url 'view-profile' user.id %}" class="btn btn-primary">view profile</a>
+</div> -->
+{#% endfor %#}
+
+<div class="flex-grow h-screen pb-44 pt-6 mr-4 xl:mr-40 overflow-y-auto">
+    <div class="mx-auto max-w-md md:max-w-lg lg:max-w-2xl">
+        <!-- stories -->
+        <div class="flex justify-center space-x-3 mx-auto">
+            <!-- story card -->
+            <div
+                class="relative h-14 w-14 md:h-20 md:w-20 lg:h-56 lg:w-32 cursor-pointer overflow-x p-3 transition duration-200 transform ease-in hover:scale-105 hover:animate-pulse">
+
+                <label class="opacity-0 lg:opacity-100 absolute z-50 t-10 btn btn-ghost btn-circle avatar">
+                    <div class="w-10 rounded-full">
+                        <img src="{{ request.user.profile_image.url }}" />
+                    </div>
+                </label>
+
+
+                <img class="object-cover filter brightness-75 sm:btn-circle sm:avatar sm:rounded-full lg:rounded-3xl"
+                    src="{% static 'images/net1.jpg' %}" alt="network1">
+
+                <p class="text-center absolute opacity-0 lg:opacity-100 bottom-4 w-5/6 text-white text-sm font-bold truncate">
+                    Network</p>
+            </div>
+
+
+            <div
+                class="relative h-14 w-14 md:h-20 md:w-20 lg:h-56 lg:w-32 cursor-pointer overflow-x p-3 transition duration-200 transform ease-in hover:scale-105 hover:animate-pulse">
+                <label class="opacity-0 lg:opacity-100 absolute z-50 t-10 btn btn-ghost btn-circle avatar">
+                    <div class="w-10 rounded-full">
+                        <img src="{% static 'images/net2.jpg' %}" />
+                    </div>
+                </label>
+
+                <img class="object-cover filter brightness-75 rounded-full lg:rounded-3xl"
+                    src="{% static 'images/net2.jpg' %}" alt="network2">
+
+                <p class="text-center absolute opacity-0 lg:opacity-100 bottom-4 w-5/6 text-white text-sm font-bold truncate">
+                    Network 2</p>
+            </div>
+        </div>
+    </div>
+</div>
