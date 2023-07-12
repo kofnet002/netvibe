@@ -1,5 +1,24 @@
 {% block content %}
-<div class="p-2">
+<div class="p-2 mt-5 max-w-[600px] xl:min-w-[300px]">
+    <!-- sidebar row -->
+    <div
+        class="flex items-center space-x-2 p-2 transition duration-200 tansform ease-in hover:bg-primary hover:text-white hover:scale-105 rounded-xl cursor-pointer">
+        <img class="mr-3 avatar btn-circle rounded-full" src="{{request.user.profile_image.url}}" width="30%"
+            height="30%" alt="">
+        <p class="hidden sm:inline-flex font-medium">Network 1</p>
+    </div>
+    <div
+        class="flex items-center space-x-2 p-2 transition duration-200 tansform ease-in hover:bg-primary hover:text-white hover:scale-105 rounded-xl cursor-pointer">
+        <img class="mr-3 avatar btn-circle rounded-full" src="{{request.user.profile_image.url}}" width="30%"
+            height="30%" alt="">
+        <p class="hidden sm:inline-flex font-medium">Friends</p>
+    </div>
+    <div
+        class="flex items-center space-x-2 p-2 transition duration-200 tansform ease-in hover:bg-primary hover:text-white hover:scale-105 rounded-xl cursor-pointer">
+        <img class="mr-3 avatar btn-circle rounded-full" src="{{request.user.profile_image.url}}" width="30%"
+            height="30%" alt="">
+        <p class="hidden sm:inline-flex font-medium">Groups</p>
+    </div>
 
 </div>
 {% endblock content %}
