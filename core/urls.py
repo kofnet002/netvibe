@@ -25,6 +25,7 @@ urlpatterns = [
     path('', include('chat.urls')),
     path('', include('account.urls')),
     path('', include('friend.urls')),
+    path('', include('home.urls')),
     path("__reload__/", include("django_browser_reload.urls")),
 
 

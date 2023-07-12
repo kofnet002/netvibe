@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'chat.apps.ChatConfig',
     'account.apps.AccountConfig',
     'friend.apps.FriendConfig',
+    'home.apps.HomeConfig',
 
     'tailwind',
     # 'theme',
@@ -106,28 +107,30 @@ CHANNEL_LAYERS = {
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
-
 DATABASES = {
-     'default': {
-         'ENGINE': 'mssql',
-         'NAME': 'netvibe-database',
-         'USER': 'CloudSA519631a5',
-         'PASSWORD': 'fuckthembitches',
-         'HOST': 'netvibe-server.database.windows.net',
-         'PORT': '1433',
-         'OPTIONS': {
-             'driver': 'ODBC Driver 18 for SQL Server',
-             'MARS_Connection': 'True',
-         }
-     }
- }
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}
+
+
+# DATABASES = {
+#      'default': {
+#          'ENGINE': 'mssql',
+#         #  'ENGINE': 'django.db.backends.mysql',
+
+#          'NAME': 'netvibe-database',
+#          'USER': 'CloudSA519631a5',
+#          'PASSWORD': 'fuckthembitches',
+#          'HOST': 'netvibe-server.database.windows.net',
+#          'PORT': '1433',
+#          'OPTIONS': {
+#              'driver': 'ODBC Driver 18 for SQL Server',
+#              'MARS_Connection': 'True',
+#          }
+#      }
+#  }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

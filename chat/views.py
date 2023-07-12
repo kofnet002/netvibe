@@ -1,22 +1,8 @@
 from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
 from .models import  Message
 from account.models import Account
 
 # Create your views here.
-@login_required(login_url='/login')
-def index(request):
-    user = request.user.username
-    all_users = Account.objects.exclude(username=user)
-
-    context = {
-        'all_users': all_users,
-    }
-
-    return render(request, 'chat/home.html', context)
-
-
-
 def send_message_view(request, *args, **kwargs):
     sender_id = kwargs.get('id1')
     receiver_id = kwargs.get('id2')
