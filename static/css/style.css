@@ -24,3 +24,31 @@
 *{
     font-family: 'Montserrat', sans-serif;
 }
+
+.inputIcon{
+    display: flex;
+    align-items: center;
+    padding: .5rem;
+    border-radius: .5rem;
+    gap: 1;
+    flex-grow: inherit;
+    justify-items: center;
+}
+
+.inputIcon:hover{
+    background-color: rgb(9, 8, 104);
+    cursor: pointer;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
