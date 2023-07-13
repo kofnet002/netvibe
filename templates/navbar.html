@@ -1,7 +1,7 @@
 {% block content %}
 {% load static %}
 
-<div class="navbar bg-base-100">
+<div class="navbar bg-base-100 shadow-lg">
     {% if request.user.is_authenticated %}
     <div class="flex-1">
         <a href="{% url 'home' %}" class="normal-case text-xl">
