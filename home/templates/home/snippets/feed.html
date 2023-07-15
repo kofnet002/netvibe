@@ -9,32 +9,35 @@
 </div> -->
 {#% endfor %#}
 
-<div class="flex-grow h-screen pb-44 pt-6 mr-4 xl:mr-40 overflow-y-auto no-scrollbar">
+<div class="flex-grow h-screen pb-44 pt-6 mr-4 xl:mr-40 overflow-y-auto overflow-x-scroll no-scrollbar">
     <div class="mx-auto max-w-md md:max-w-lg lg:max-w-2xl">
         <!-- stories -->
-        <div class="flex justify-center space-x-3 mx-auto">
+
+        <div class="flex overflow-x-auto space-x-2 w-full no-scrollbar">
             <!-- story card -->
+
             <div
-                class="relative h-14 w-14 md:h-20 md:w-20 lg:h-56 lg:w-32 cursor-pointer overflow-x p-3 transition duration-200 transform ease-in hover:scale-105 hover:animate-pulse">
+                class="flex-shrink-0 relative h-14 w-14 md:h-20 md:w-20 lg:h-56 lg:w-32 cursor-pointer overflow-x p-3 transition duration-200 transform ease-in hover:scale-95 hover:animate-pulse">
+                <div class="bg-primary p-1 absolute rounded-full z-50 bottom-8 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                        stroke="currentColor" class="text-white w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M12 9v6m3-3H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
 
-                <label class="opacity-0 lg:opacity-100 absolute z-50 t-10 btn btn-ghost btn-circle avatar">
-                    <div class="w-10 rounded-full">
-                        <img src="{{ request.user.profile_image.url }}" />
-                    </div>
-                </label>
+                </div>
 
 
-                <img class="object-cover filter brightness-75 rounded-full lg:rounded-3xl"
-                    src="{% static 'images/net1.jpg' %}" alt="network2">
+                <img class="object-cover filter  brightness-75 rounded-full lg:rounded-3xl"
+                    src="{% static 'images/net1.jpg' %}" alt="network2" />
 
                 <p
                     class="text-center absolute opacity-0 lg:opacity-100 bottom-4 w-5/6 text-white text-sm font-bold truncate">
-                    Network</p>
+                    Network
+                </p>
             </div>
-
-
             <div
-                class="relative h-14 w-14 md:h-20 md:w-20 lg:h-56 lg:w-32 cursor-pointer overflow-x p-3 transition duration-200 transform ease-in hover:scale-105 hover:animate-pulse">
+                class="flex-shrink-0 relative h-14 w-14 md:h-20 md:w-20 lg:h-56 lg:w-32 cursor-pointer overflow-x p-3 transition duration-200 transform ease-in hover:scale-95 hover:animate-pulse">
                 <label class="opacity-0 lg:opacity-100 absolute z-50 t-10 btn btn-ghost btn-circle avatar">
                     <div class="w-10 rounded-full">
                         <img src="{% static 'images/net2.jpg' %}" />
@@ -42,7 +45,82 @@
                 </label>
 
                 <img class="object-cover filter brightness-75 rounded-full lg:rounded-3xl"
-                    src="{% static 'images/net2.jpg' %}" alt="network2">
+                    src="{% static 'images/net2.jpg' %}" alt="network2" />
+
+                <p
+                    class="text-center absolute opacity-0 lg:opacity-100 bottom-4 w-5/6 text-white text-sm font-bold truncate">
+                    Network 2</p>
+            </div>
+            <div
+                class="flex-shrink-0 relative h-14 w-14 md:h-20 md:w-20 lg:h-56 lg:w-32 cursor-pointer overflow-x p-3 transition duration-200 transform ease-in hover:scale-95 hover:animate-pulse">
+                <label class="opacity-0 lg:opacity-100 absolute z-50 t-10 btn btn-ghost btn-circle avatar">
+                    <div class="w-10 rounded-full">
+                        <img src="{% static 'images/net2.jpg' %}" />
+                    </div>
+                </label>
+
+                <img class="object-cover filter brightness-75 rounded-full lg:rounded-3xl"
+                    src="{% static 'images/net2.jpg' %}" alt="network2" />
+
+                <p
+                    class="text-center absolute opacity-0 lg:opacity-100 bottom-4 w-5/6 text-white text-sm font-bold truncate">
+                    Network 2</p>
+            </div>
+            <div
+                class="flex-shrink-0 relative h-14 w-14 md:h-20 md:w-20 lg:h-56 lg:w-32 cursor-pointer overflow-x p-3 transition duration-200 transform ease-in hover:scale-95 hover:animate-pulse">
+                <label class="opacity-0 lg:opacity-100 absolute z-50 t-10 btn btn-ghost btn-circle avatar">
+                    <div class="w-10 rounded-full">
+                        <img src="{% static 'images/net2.jpg' %}" />
+                    </div>
+                </label>
+
+                <img class="object-cover filter brightness-75 rounded-full lg:rounded-3xl"
+                    src="{% static 'images/net2.jpg' %}" alt="network2" />
+
+                <p
+                    class="text-center absolute opacity-0 lg:opacity-100 bottom-4 w-5/6 text-white text-sm font-bold truncate">
+                    Network 2</p>
+            </div>
+            <div
+                class="flex-shrink-0 relative h-14 w-14 md:h-20 md:w-20 lg:h-56 lg:w-32 cursor-pointer overflow-x p-3 transition duration-200 transform ease-in hover:scale-95 hover:animate-pulse">
+                <label class="opacity-0 lg:opacity-100 absolute z-50 t-10 btn btn-ghost btn-circle avatar">
+                    <div class="w-10 rounded-full">
+                        <img src="{% static 'images/net2.jpg' %}" />
+                    </div>
+                </label>
+
+                <img class="object-cover filter brightness-75 rounded-full lg:rounded-3xl"
+                    src="{% static 'images/net2.jpg' %}" alt="network2" />
+
+                <p
+                    class="text-center absolute opacity-0 lg:opacity-100 bottom-4 w-5/6 text-white text-sm font-bold truncate">
+                    Network 2</p>
+            </div>
+            <div
+                class="flex-shrink-0 relative h-14 w-14 md:h-20 md:w-20 lg:h-56 lg:w-32 cursor-pointer overflow-x p-3 transition duration-200 transform ease-in hover:scale-95 hover:animate-pulse">
+                <label class="opacity-0 lg:opacity-100 absolute z-50 t-10 btn btn-ghost btn-circle avatar">
+                    <div class="w-10 rounded-full">
+                        <img src="{% static 'images/net2.jpg' %}" />
+                    </div>
+                </label>
+
+                <img class="object-cover filter brightness-75 rounded-full lg:rounded-3xl"
+                    src="{% static 'images/net2.jpg' %}" alt="network2" />
+
+                <p
+                    class="text-center absolute opacity-0 lg:opacity-100 bottom-4 w-5/6 text-white text-sm font-bold truncate">
+                    Network 2</p>
+            </div>
+            <div
+                class="flex-shrink-0 relative h-14 w-14 md:h-20 md:w-20 lg:h-56 lg:w-32 cursor-pointer overflow-x p-3 transition duration-200 transform ease-in hover:scale-95 hover:animate-pulse">
+                <label class="opacity-0 lg:opacity-100 absolute z-50 t-10 btn btn-ghost btn-circle avatar">
+                    <div class="w-10 rounded-full">
+                        <img src="{% static 'images/net2.jpg' %}" />
+                    </div>
+                </label>
+
+                <img class="object-cover filter brightness-75 rounded-full lg:rounded-3xl"
+                    src="{% static 'images/net2.jpg' %}" alt="network2" />
 
                 <p
                     class="text-center absolute opacity-0 lg:opacity-100 bottom-4 w-5/6 text-white text-sm font-bold truncate">
@@ -51,7 +129,8 @@
         </div>
 
 
-    {% include 'home/snippets/inputBox.html' %}
-    {% include 'home/snippets/posts.html' %}
+
+        {% include 'home/snippets/inputBox.html' %}
+        {% include 'home/snippets/posts.html' %}
     </div>
 </div>
