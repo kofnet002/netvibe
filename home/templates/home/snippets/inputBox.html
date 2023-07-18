@@ -2,9 +2,10 @@
 <div class="p-2 mt-8 rounded-2xl shadow-lg">
     <div class="flex space-x-4 p-4 itemst-center">
         <img class="avatar btn-circle rounded-full" src="{{ request.user.profile_image.url }}" alt="">
-        <form action="" class="flex w-full">
-            <input class="w-full rounded-full h-12 bg-transparent flex-grow px-5 focus:outline-none" type="text"
-                placeholder="What is on your mind {{ request.user.username }} ? ">
+        <form action="{% url 'save-post' %}" enctype="multipart/form-data" class="flex w-full" method="POST">
+            {% csrf_token %}
+            <input name="caption" class="w-full rounded-full h-12 bg-transparent flex-grow px-5 focus:outline-none"
+                type="text" placeholder="What is on your mind {{ request.user.username }} ? ">
             <div class="boreder" id="file_preview"></div>
         </form>
 
@@ -32,7 +33,10 @@
                     <path stroke-linecap="round" stroke-linejoin="round"
                         d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z" />
                 </svg>
-                <input id="photo" type="file" hidden id="file_upload" onchange="getImagePreview(event)">
+                <form action="{% url 'save-post' %}" method="POST" enctype="multipart/form-data">
+                    <input name="file_to_save" id="photo" type="file" hidden id="file_upload"
+                    onchange="getImagePreview(event)">
+                </form>
                 <p class="text-xs sm:text-sm xl:text-base">Photo/Video</p>
             </label>
         </div>
@@ -50,15 +54,37 @@
 </div>
 
 <script>
+    // && file_type.includes(''))
     const getImagePreview = (event) => {
+        const file_type = event.target.files[0]['type']
+
+
         const image = URL.createObjectURL(event.target.files[0]);
-        console.log(image);
+
         const imagePreview = document.getElementById('file_preview')
-        const newImage = document.createElement('img');
-        imagePreview.innerHTML = ' ';
-        newImage.src = image;
-        newImage.width = "100";
-        imagePreview.appendChild(newImage);
+
+        if (file_type.includes('image')) {
+            const newImage = document.createElement('img');
+            imagePreview.innerHTML = ' ';
+            newImage.src = image;
+            newImage.width = "100";
+            newImage.height = "100";
+            imagePreview.appendChild(newImage);
+        } else {
+            const newVideo = document.createElement('video');
+            imagePreview.innerHTML = ' ';
+            newVideo.src = image;
+            newVideo.width = "100";
+            newVideo.height = "100";
+            imagePreview.appendChild(newVideo);
+        }
+
+        // const newImage = document.createElement('img');
+        // imagePreview.innerHTML = ' ';
+        // newImage.src = image;
+        // newImage.width = "100";
+        // newImage.height = "100";
+        // imagePreview.appendChild(newImage);
     }
 </script>
 {% endblock content %}

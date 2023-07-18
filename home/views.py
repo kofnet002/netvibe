@@ -14,3 +14,12 @@ def index(request):
     }
 
     return render(request, 'home/home.html', context)
+
+
+def save_post(request):
+    if request.method == 'POST':
+        user = request.user.username
+        caption = request.POST.get('caption')
+        _file = request.FILES.get('test')
+        print(user, caption, _file)
+    return render(request, 'home/home.html')
