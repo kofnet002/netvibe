@@ -2,33 +2,39 @@
 <div class="p-2 mt-8 rounded-2xl shadow-lg">
     <div class="flex space-x-4 p-4 itemst-center">
         <img class="avatar btn-circle rounded-full" src="{{ request.user.profile_image.url }}" alt="">
-        <form action="" class="flex flex-1">
-            <input class="rounded-full h-12 bg-transparent flex-grow px-5 focus:outline-none" type="text"
+        <form action="" class="flex w-full">
+            <input class="w-full rounded-full h-12 bg-transparent flex-grow px-5 focus:outline-none" type="text"
                 placeholder="What is on your mind {{ request.user.username }} ? ">
-            <button hidden class="btn btn-ghost" type="submit">Post</button>
+            <div class="boreder" id="file_preview"></div>
         </form>
 
     </div>
 
     <div class="flex justify-evenly p-3 border-t">
-        <div class="flex p-2 cursor-pointer transition duration-200 tansform ease-in hover:text-white hover:scale-105">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="w-6 h-6 text-red-500 mr-2">
-                <path stroke-linecap="round"
-                    d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" />
-            </svg>
-            <p class="text-xs sm:text-sm xl:text-base">Live Video</p>
+        <div class="transition duration-200 tansform ease-in hover:text-white hover:scale-105">
+            <label class="flex p-2 cursor-pointer" for="video">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-6 h-6 text-red-500 mr-2" for="video">
+                    <path stroke-linecap="round"
+                        d="M15.75 10.5l4.72-4.72a.75.75 0 011.28.53v11.38a.75.75 0 01-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25h-9A2.25 2.25 0 002.25 7.5v9a2.25 2.25 0 002.25 2.25z" />
+                </svg>
+                <input id="video" type="file" hidden>
+                <p class="text-xs sm:text-sm xl:text-base">Live Video</p>
+            </label>
         </div>
 
-        <div class="flex p-2 cursor-pointer transition duration-200 tansform ease-in hover:text-white hover:scale-105">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="w-6 h-6 text-green-500 mr-2">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z" />
-                <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z" />
-            </svg>
-            <p class="text-xs sm:text-sm xl:text-base">Photo/Video</p>
+        <div class="transition duration-200 tansform ease-in hover:text-white hover:scale-105">
+            <label class="flex p-2 cursor-pointer" for="photo">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-6 h-6 text-green-500 mr-2">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M6.827 6.175A2.31 2.31 0 015.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 00-1.134-.175 2.31 2.31 0 01-1.64-1.055l-.822-1.316a2.192 2.192 0 00-1.736-1.039 48.774 48.774 0 00-5.232 0 2.192 2.192 0 00-1.736 1.039l-.821 1.316z" />
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z" />
+                </svg>
+                <input id="photo" type="file" hidden id="file_upload" onchange="getImagePreview(event)">
+                <p class="text-xs sm:text-sm xl:text-base">Photo/Video</p>
+            </label>
         </div>
 
         <div class="flex p-2 cursor-pointer transition duration-200 tansform ease-in hover:text-white hover:scale-105">
@@ -42,4 +48,17 @@
 
     </div>
 </div>
+
+<script>
+    const getImagePreview = (event) => {
+        const image = URL.createObjectURL(event.target.files[0]);
+        console.log(image);
+        const imagePreview = document.getElementById('file_preview')
+        const newImage = document.createElement('img');
+        imagePreview.innerHTML = ' ';
+        newImage.src = image;
+        newImage.width = "100";
+        imagePreview.appendChild(newImage);
+    }
+</script>
 {% endblock content %}

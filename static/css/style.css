@@ -25,6 +25,10 @@
     font-family: 'Montserrat', sans-serif;
 }
 
+a{
+    color: blue;
+}
+
 .inputIcon{
     display: flex;
     align-items: center;
