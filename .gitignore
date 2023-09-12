@@ -1,2 +1,5 @@
 .env
 .VSCodeCounter
+.vscode
+venv/
+netvibe51838-e7b2bcfeadfa.json

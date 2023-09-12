@@ -8,12 +8,13 @@ Login Page | NetVibe
 
 
 {% block content %}
-    <div class="mt-40 flex flex-col items-center justify-center">
+    <div class="h-[80vh] flex flex-col items-center justify-center">
         <form method="POST">{% csrf_token %}
             <div class="">
                 <img  class="img-fluid mx-auto d-block" src="{% static 'images/logo.png' %}" alt="logo" width="50%">
             </div>
 
+            <p class="text-center font-bold text-xl text-white">Welcome back</p>
                 {% for field in login_form %}
                 <p>
                     {% for error in field.errors %}
@@ -32,19 +33,18 @@ Login Page | NetVibe
                 <br>
 
             <div class="flex flex-col">
-
-                <input class="" type="email" name="email" id="inputEmail" class="" placeholder="Email address" required
+                <input class="p-3 outline-none mb-3 rounded-md" type="email" name="email" id="inputEmail" class="" placeholder="Email address" required
                 autofocus>
                 
-                <input class="mb-5" type="password" name="password" id="inputPassword2" class="" placeholder="Enter password"
+                <input class="p-3 outline-none mb-5 rounded-md" type="password" name="password" id="inputPassword2" class="" placeholder="Enter password"
                 required>
             </div>
         
             <div class="flex justify-center">
-                <button class="btn w-80 text-blue-600" type="submit">Login</button>
+                <button class="btn bg-blue-700 text-white w-full" type="submit">Login</button>
             </div>
         </form>
-        <div class="text-center text-blue-600 my-5">
+        <div class="text-center my-5">
             <a href="{% url 'password_reset' %}">Forgotten password ?</a>
         </div>
      

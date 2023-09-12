@@ -12,7 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 from decouple import config
-import dj_database_url
+
+# import dj_database_url
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -22,15 +23,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+
+SECRET_KEY = config("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# Change this to "False" when you are ready for production
+DEBUG = config("DEBUG")
 
-ALLOWED_HOSTS = ['netvibe.azurewebsites.net', 'localhost']
-CSRF_TRUSTED_ORIGINS=['https://netvibe.azurewebsites.net', 'http://localhost']
-
+# SECURITY WARNING: App Engine's security features ensure that it is safe to
+# have ALLOWED_HOSTS = ['*'] when the app is deployed. If you deploy a Django
+# app not on App Engine, make sure to set an appropriate host here.
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
@@ -50,7 +53,7 @@ INSTALLED_APPS = [
 
     'tailwind',
     # 'theme',
-    # 'django_browser_reload',
+    'django_browser_reload',
     # 'compressor',
 ]
 
@@ -72,7 +75,7 @@ MIDDLEWARE = [
     "django_browser_reload.middleware.BrowserReloadMiddleware",
 ]
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 ROOT_URLCONF = 'core.urls'
 
@@ -115,23 +118,6 @@ DATABASES = {
 }
 
 
-# DATABASES = {
-#      'default': {
-#          'ENGINE': 'mssql',
-#         #  'ENGINE': 'django.db.backends.mysql',
-
-#          'NAME': 'netvibe-database',
-#          'USER': 'CloudSA519631a5',
-#          'PASSWORD': 'fuckthembitches',
-#          'HOST': 'netvibe-server.database.windows.net',
-#          'PORT': '1433',
-#          'OPTIONS': {
-#              'driver': 'ODBC Driver 18 for SQL Server',
-#              'MARS_Connection': 'True',
-#          }
-#      }
-#  }
-
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -166,7 +152,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = '/static/'
+# STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS= [
     BASE_DIR / 'static'
@@ -174,6 +160,13 @@ STATICFILES_DIRS= [
 
 MEDIA_ROOT = BASE_DIR / 'static/images/'
 MEDIA_URL = '/images/'
+
+# MEDIA_URL = 'https://storage.googleapis.com/netvibe51838_netvibe-bucket/'
+
+
+
+STATIC_URL = "/static/"
+
 
 # COMPRESS_ROOT = BASE_DIR / 'static'
 # COMPRESS_ENABLED = True

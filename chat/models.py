@@ -4,7 +4,7 @@ from account.models import Account
 
 # Create your models here.
 class Message(models.Model):
-    uuid = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
     body = models.TextField()
     sent_by = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='msg_sender')
     receiver = models.ForeignKey(Account, on_delete=models.CASCADE, related_name='msg_receiver')

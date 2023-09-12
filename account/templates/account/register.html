@@ -8,7 +8,7 @@ Registration Page | NetVibe
 
 
 {% block content %}
-<div class="mt-40 flex flex-col items-center justify-center">
+<div class="h-[70vh] flex flex-col items-center justify-center">
     <form method="POST">{% csrf_token %}
         <div class="mt-36">
             <img class="hover:cursor-pointer img-fluid mx-auto d-block" src="{% static 'images/logo.png' %}" alt="logo" width="50%">
@@ -31,15 +31,15 @@ Registration Page | NetVibe
         <br>
 
         <div class="flex flex-col">
-            <input type="text" name="username" id="inputUsername" class="" placeholder="Username" required autofocus>
-            <input type="email" name="email" id="inputEmail" class="" placeholder="Email address" required>
-            <input type="password" name="password1" id="inputPassword1" class="" placeholder="Password" required>
-            <input type="password" name="password2" id="inputPassword2" class="" placeholder="Confirm password"
+            <input type="text" name="username" id="inputUsername" class="p-3 outline-none mb-3 rounded-md" placeholder="Username" required autofocus>
+            <input type="email" name="email" id="inputEmail" class="p-3 outline-none mb-3 rounded-md" placeholder="Email address" required>
+            <input type="password" name="password1" id="inputPassword1" class="p-3 outline-none mb-3 rounded-md" placeholder="Password" required>
+            <input type="password" name="password2" id="inputPassword2" class="p-3 outline-none mb-3 rounded-md" placeholder="Confirm password"
                 required>
         </div>
 
         <div class="flex justify-center my-3">
-            <button class="text-green-700" type="submit">Register</button>
+            <button class="bg-green-700 btn w-full text-white" type="submit">Register</button>
         </div>
 
         <div class="text-sm text-center">
