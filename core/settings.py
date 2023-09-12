@@ -34,8 +34,9 @@ DEBUG = config("DEBUG")
 # have ALLOWED_HOSTS = ['*'] when the app is deployed. If you deploy a Django
 # app not on App Engine, make sure to set an appropriate host here.
 
-ALLOWED_HOSTS = ['lovechat-166a2743393f.herokuapp.com', 'localhost']
-CSRF_TRUSTED_ORIGINS=['https://lovechat-166a2743393f.herokuapp.com', 'http://localhost']
+
+ALLOWED_HOSTS = ['netvibe-62ba411896bc.herokuapp.com', 'localhost']
+CSRF_TRUSTED_ORIGINS=['https://netvibe-62ba411896bc.herokuapp.com', 'http://localhost']
 # Application definition
 
 INSTALLED_APPS = [
