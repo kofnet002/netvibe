@@ -33,8 +33,9 @@ DEBUG = config("DEBUG")
 # SECURITY WARNING: App Engine's security features ensure that it is safe to
 # have ALLOWED_HOSTS = ['*'] when the app is deployed. If you deploy a Django
 # app not on App Engine, make sure to set an appropriate host here.
-ALLOWED_HOSTS = ["*"]
 
+ALLOWED_HOSTS = ['lovechat-166a2743393f.herokuapp.com', 'localhost']
+CSRF_TRUSTED_ORIGINS=['https://lovechat-166a2743393f.herokuapp.com', 'http://localhost']
 # Application definition
 
 INSTALLED_APPS = [
@@ -65,7 +66,7 @@ INSTALLED_APPS = [
     
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    "whitenoise.middleware.WhiteNoiseMiddleware",
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',

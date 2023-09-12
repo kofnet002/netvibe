@@ -1,1 +1,1 @@
-web: gunicorn core.asgi -log-file -
+web: gunicorn core.asgi
